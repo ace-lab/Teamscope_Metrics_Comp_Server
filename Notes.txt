@@ -1,0 +1,4 @@
+Notes:
+
+For postgres: apt-get install postgres libpq-dev
+For sqlite: apt-get install -y --force-yes sqlite3 libsqlite3-dev
