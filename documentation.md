@@ -13,26 +13,26 @@ Next you will need to make a few changes to your code such that you add cucumber
 
 ### Methods Documentation
 ##### `check_tdd_commits`
-Behavior: Checks if your request if "preemptive" or not and runs the TDD Checker on the commits specified
-Args:
-    `preemptive` (bool): Whether or not your request is preemptive or not
-    `repo` (str): The full name (<username>/<reponame>) of your repository
-    `branch` (str): If your request is not preemptive, then what branch you want to check
-Returns:
-    `ret` (str): JSON string with all of the XML test coverages for all commits checked
-Errors:
-    `err` (int): Possible error codes of -1, -2, -3. All signify a place in the code where something has gone wrong.
+Behavior: Checks if your request if "preemptive" or not and runs the TDD Checker on the commits specified  
+Args:  
+&nbsp;&nbsp;&nbsp;&nbsp;`preemptive` (bool): Whether or not your request is preemptive or not  
+&nbsp;&nbsp;&nbsp;&nbsp;`repo` (str): The full name (<username>/<reponame>) of your repository  
+&nbsp;&nbsp;&nbsp;&nbsp;`branch` (str): If your request is not preemptive, then what branch you want to check  
+Returns:  
+&nbsp;&nbsp;&nbsp;&nbsp;`ret` (str): JSON string with all of the XML test coverages for all commits checked  
+Errors:  
+&nbsp;&nbsp;&nbsp;&nbsp;`err` (int): Possible error codes of -1, -2, -3. All signify a place in the code where something has gone wrong.
 
 ##### `compute_metric`
-Behavior: Computes the metric based off the XML files that were already computed using check_tdd_commits. Uses `return_tdd_metric` to return the final metric.
-Args:
-    `repo` (str): The full name (<username>/<reponame>) of your repository
-Returns:
-    `ret` (str): JSON string with all metrics or error JSON string.
+Behavior: Computes the metric based off the XML files that were already computed using check_tdd_commits. Uses `return_tdd_metric` to return the final metric.  
+Args:  
+&nbsp;&nbsp;&nbsp;&nbsp;`repo` (str): The full name (<username>/<reponame>) of your repository  
+Returns:  
+&nbsp;&nbsp;&nbsp;&nbsp;`ret` (str): JSON string with all metrics or error JSON string.
 
 ##### `return_tdd_metric`
-Behavior: Returns the cached version of the metrics from file.
-Args:
-    `repo` (str): The full name (<username>/<reponame>) of your repository
-Returns:
-    `ret` (str): JSON string with all metrics or error JSON string.
+Behavior: Returns the cached version of the metrics from file.  
+Args:  
+&nbsp;&nbsp;&nbsp;&nbsp;`repo` (str): The full name (<username>/<reponame>) of your repository  
+Returns:  
+&nbsp;&nbsp;&nbsp;&nbsp;`ret` (str): JSON string with all metrics or error JSON string.
