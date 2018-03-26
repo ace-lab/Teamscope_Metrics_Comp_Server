@@ -3,6 +3,7 @@ import os
 import socket
 from tddchecker_comp import *
 from metric_tddchecker import *
+from github_comp_metric import github_comp
 
 app = Flask(__name__)
 
@@ -32,6 +33,10 @@ def return_tdd_metric():
     except:
         data = {"success": False, "reason": "File does not exist"}
     return jsonify(data)
+
+@app.route("/calc_gh_data")
+def calc_gh_data():
+    return jsonify(github_comp(request.args["repo"]))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=43000)
