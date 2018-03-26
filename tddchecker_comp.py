@@ -44,11 +44,11 @@ def calculate_commits(repo, commits):
         os.system("git reset --hard origin/master")
         travis_config=yaml.load(open('.travis.yml'))
         rvm_version = travis_config["rvm"][0]
-        print(rvm_version)
-        print(os.system("rbenv version"))
-        print(os.getcwd())
+        # print(rvm_version)
+        # print(os.system("rbenv version"))
+        # print(os.getcwd())
         os.system("rbenv local {0}".format(rvm_version))
-        print(os.system("rbenv version"))
+        # print(os.system("rbenv version"))
     except:
         return -2
 
@@ -88,7 +88,7 @@ def premptive_calculations(repo):
         os.system("git fetch --all")
         os.system("git reset --hard origin/master")
         #should be --since 1.days
-        os.system("git log --pretty=format:'%H' --since=65.days > updated.txt")
+        os.system("git log --pretty=format:'%H' --since=99.days > updated.txt")
     except:
         return -1
     commits = []
@@ -102,7 +102,7 @@ def premptive_calculations(repo):
 
 
 #check_commits("saasbook/CS169_Great_Course_Guide", ["24fbadaa93833941b80c0db0d7fac8d2d4b8d5bd", "cd67b0a58c4ba757cb4bdf044329addf4291355a"])
-#premptive_calculations("saasbook/CS169_Great_Course_Guide")
+premptive_calculations("saasbook/CS169_Great_Course_Guide")
 
 # if __name__ == '__main__':
 #     if sys.argv[1] == "preemptive":
