@@ -118,4 +118,4 @@ def check_gh_commit(owner_and_repo, commits):
     for commit in calculate:
         comp_one_commit(owner_and_repo, commit)
 
-github_comp("adnanhemani/CS169_Great_Course_Guide")
+# github_comp("adnanhemani/CS169_Great_Course_Guide")

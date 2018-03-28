@@ -4,6 +4,7 @@ import socket
 from tddchecker_comp import *
 from metric_tddchecker import *
 from github_comp_metric import github_comp
+from travis_comp_metric import get_all_travis_data
 
 app = Flask(__name__)
 
@@ -37,6 +38,10 @@ def return_tdd_metric():
 @app.route("/calc_gh_data")
 def calc_gh_data():
     return jsonify(github_comp(request.args["repo"]))
+
+@app.route("/calc_travis_data")
+def calc_travis_data():
+    return jsonify(get_all_travis_data(request.args["repo"]))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=43000)
