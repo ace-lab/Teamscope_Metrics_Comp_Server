@@ -43,5 +43,9 @@ def calc_gh_data():
 def calc_travis_data():
     return jsonify(get_all_travis_data(request.args["repo"]))
 
+@app.route("/hello_world")
+def hello_world():
+    return jsonify({"success": "True", "Message": "Hello World!"})
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=43000)

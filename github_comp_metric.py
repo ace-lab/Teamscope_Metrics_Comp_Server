@@ -91,7 +91,7 @@ def github_comp(owner_and_repo):
         os.system("git fetch --all")
         os.system("git reset --hard origin/master")
         #should be --since 1.days
-        relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:%H', "--since=109.days"]).decode("utf-8")
+        relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:%H', "--since='2017-08-01T00:00:00-07:00'"]).decode("utf-8")
         relevant_commits_list = relevant_commits.split("\n")
     except:
         return -1

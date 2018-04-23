@@ -13,7 +13,7 @@ def compute_tdd_metric(repo):
     os.chdir("./{0}/{1}".format(short_name, short_name))
     os.system("git fetch --all")
     os.system("git reset --hard origin/master")
-    relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:"%H"', "--since=99.days"]).decode("utf-8")
+    relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:"%H"', "--since='2017-08-01T00:00:00-07:00'"]).decode("utf-8")
     relevant_commits_list = relevant_commits.split("\n")
     print(relevant_commits_list)
     retVal = {}
@@ -50,4 +50,4 @@ def compute_tdd_metric(repo):
     with open("tddresults/result.json", "w") as file:
         file.write(json.dumps(retVal))
 
-compute_tdd_metric("saasbook/CS169_Great_Course_Guide")
+#compute_tdd_metric("saasbook/CS169_Great_Course_Guide")
