@@ -97,7 +97,7 @@ def save_to_file(commits_dict):
         with open("commits/" + commit + ".xml", 'w') as file:
             file.write(commits_dict[commit])
 
-def save_to_file_single(commit_name, values_dict, short_repo):
+def save_to_file_single(commit_name, values_dict, short_name):
     os.chdir("..")
     if (not os.path.isdir("./commits")):
         os.system("mkdir commits")
