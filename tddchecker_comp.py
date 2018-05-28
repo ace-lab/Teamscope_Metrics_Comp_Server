@@ -65,11 +65,11 @@ def calculate_commits(repo, commits):
     retVal = {}
     for rollback in commits:
         os.system("git reset --hard {0}".format(rollback))
-        os.system("rm coverage/*.json")
-        os.system("rm coverage/*.lock")
-        os.system("rm coverage/*.html")
-        os.system("rm coverage/*.xml")
-        os.system("rm coverage/index.html")
+        os.system("rm coverage/*.json" + " > /dev/null 2>&1")
+        os.system("rm coverage/*.lock" + " > /dev/null 2>&1")
+        os.system("rm coverage/*.html" + " > /dev/null 2>&1")
+        os.system("rm coverage/*.xml" + " > /dev/null 2>&1")
+        os.system("rm coverage/index.html" + " > /dev/null 2>&1")
         os.system("git checkout " + commit_head + " features/support/env.rb spec/spec_helper.rb .travis.yml spec/rails_helper.rb Gemfile .ruby-version")
         with open(".travis.yml", 'r') as stream:
             try:
