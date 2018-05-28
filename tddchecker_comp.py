@@ -42,6 +42,8 @@ def calculate_commits(repo, commits):
     try:
         os.system("git fetch --all")
         os.system("git reset --hard origin/master")
+        commit_head = subprocess.check_output(["git", "rev-parse", "HEAD"])
+        commit_head = commit_head.replace("\n", "")
         travis_config=yaml.load(open('.travis.yml'))
         rvm_version = travis_config["rvm"][0]
         # print(rvm_version)
@@ -68,6 +70,7 @@ def calculate_commits(repo, commits):
         os.system("rm coverage/*.html")
         os.system("rm coverage/*.xml")
         os.system("rm coverage/index.html")
+        os.system("git checkout " + commit_head + " features/support/env.rb spec/spec_helper.rb .travis.yml spec/rails_helper.rb Gemfile")
         with open(".travis.yml", 'r') as stream:
             try:
                 cmds = yaml.load(stream)
