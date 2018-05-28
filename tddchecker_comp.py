@@ -101,9 +101,8 @@ def save_to_file_single(commit_name, values_dict, short_repo):
     os.chdir("..")
     if (not os.path.isdir("./commits")):
         os.system("mkdir commits")
-    for commit in commits_dict:
-        with open("commits/" + commit_name + ".xml", 'w') as file:
-            file.write(values_dict)
+    with open("commits/" + commit_name + ".xml", 'w') as file:
+        file.write(values_dict)
     os.chdir(short_name)
 
 def premptive_calculations(repo):
