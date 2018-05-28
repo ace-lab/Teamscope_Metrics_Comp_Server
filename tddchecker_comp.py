@@ -39,6 +39,8 @@ def check_commits(repo, commits):
 def calculate_commits(repo, commits):
     # print(repo)
     # print(commits)
+    matchObj = re.match(r'.*\/(.*)', repo)
+    short_name = matchObj.group(1)
     try:
         os.system("git fetch --all")
         os.system("git reset --hard origin/master")
@@ -83,7 +85,8 @@ def calculate_commits(repo, commits):
         tree = ET.parse("coverage/coverage.xml")
         root = tree.getroot()
         retVal[rollback] = ET.tostring(root).decode("utf-8")
-    save_to_file(retVal)
+        save_to_file_single(rollback, retVal[rollback], short_name)
+    #save_to_file(retVal)
     return retVal
 
 def save_to_file(commits_dict):
@@ -94,6 +97,14 @@ def save_to_file(commits_dict):
         with open("commits/" + commit + ".xml", 'w') as file:
             file.write(commits_dict[commit])
 
+def save_to_file_single(commit_name, values_dict, short_repo):
+    os.chdir("..")
+    if (not os.path.isdir("./commits")):
+        os.system("mkdir commits")
+    for commit in commits_dict:
+        with open("commits/" + commit_name + ".xml", 'w') as file:
+            file.write(values_dict)
+    os.chdir(short_name)
 
 def premptive_calculations(repo):
     matchObj = re.match(r'.*\/(.*)', repo)
