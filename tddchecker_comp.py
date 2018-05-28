@@ -77,7 +77,7 @@ def calculate_commits(repo, commits):
             except yaml.YAMLError as exc:
                 print(exc)
         for i in cmds["script"]:
-            os.system(i)
+            os.system(i + " > /dev/null 2>&1")
         #os.system("bundle exec rake cucumber > /dev/null 2>&1")
         #os.system("bundle exec rake rspec > /dev/null 2>&1")
         tree = ET.parse("coverage/coverage.xml")
