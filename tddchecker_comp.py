@@ -70,7 +70,7 @@ def calculate_commits(repo, commits):
         os.system("rm coverage/*.html")
         os.system("rm coverage/*.xml")
         os.system("rm coverage/index.html")
-        os.system("git checkout " + commit_head + " features/support/env.rb spec/spec_helper.rb .travis.yml spec/rails_helper.rb Gemfile")
+        os.system("git checkout " + commit_head + " features/support/env.rb spec/spec_helper.rb .travis.yml spec/rails_helper.rb Gemfile .ruby-version")
         with open(".travis.yml", 'r') as stream:
             try:
                 cmds = yaml.load(stream)
