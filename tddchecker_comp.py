@@ -15,7 +15,7 @@ def check_commits(repo, commits):
     os.chdir("./{0}".format(short_name))
     calculate = []
     already_have = {}
-    #print(os.getcwd())
+    #print("f7c84fe403e5380237480c44ac6bf845e8ed322c" in commits)
     for commit in commits:
         if (not os.path.exists("commits/{0}.xml".format(commit))):
             calculate.append(commit)
@@ -63,7 +63,20 @@ def calculate_commits(repo, commits):
     retVal = {}
     for rollback in commits:
         os.system("git reset --hard {0}".format(rollback))
-        os.system("bundle exec rake > /dev/null 2>&1")
+        os.system("rm coverage/*.json")
+        os.system("rm coverage/*.lock")
+        os.system("rm coverage/*.html")
+        os.system("rm coverage/*.xml")
+        os.system("rm coverage/index.html")
+        with open(".travis.yml", 'r') as stream:
+            try:
+                cmds = yaml.load(stream)
+            except yaml.YAMLError as exc:
+                print(exc)
+        for i in cmds["script"]:
+            os.system(i)
+        #os.system("bundle exec rake cucumber > /dev/null 2>&1")
+        #os.system("bundle exec rake rspec > /dev/null 2>&1")
         tree = ET.parse("coverage/coverage.xml")
         root = tree.getroot()
         retVal[rollback] = ET.tostring(root).decode("utf-8")
@@ -94,15 +107,16 @@ def premptive_calculations(repo):
     commits = []
     with open("updated.txt", "r") as f:
         for line in f:
-            commits.append(line[:-1])
+            commits.append(line.replace('\n', ""))
     os.chdir("..")
+    #print(commits)
     return check_commits(repo, commits)
 
 
 
 
 #check_commits("saasbook/CS169_Great_Course_Guide", ["24fbadaa93833941b80c0db0d7fac8d2d4b8d5bd", "cd67b0a58c4ba757cb4bdf044329addf4291355a"])
-#premptive_calculations("saasbook/CS169_Great_Course_Guide")
+premptive_calculations("adnanhemani/slc-app")
 
 # if __name__ == '__main__':
 #     if sys.argv[1] == "preemptive":

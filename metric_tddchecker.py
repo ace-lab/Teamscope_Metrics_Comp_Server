@@ -15,7 +15,7 @@ def compute_tdd_metric(repo):
     os.system("git reset --hard origin/master")
     relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:"%H"', "--since='2017-08-01T00:00:00-07:00'"]).decode("utf-8")
     relevant_commits_list = relevant_commits.split("\n")
-    print(relevant_commits_list)
+    #print(relevant_commits_list)
     retVal = {}
 
     for i in relevant_commits_list[::-1]:
@@ -29,6 +29,8 @@ def compute_tdd_metric(repo):
         for i in parent_commits_list:
             comp_branch = i.replace("\n", "")
             #diff_results = subprocess.check_output(["diff-cover", "../commits/{0}.xml".format(rollback), "--compare-branch={0}".format(comp_branch)]).decode("utf-8")
+            print(rollback)
+            print(os.getcwd())
             diff_results = subprocess.check_output(["diff-cover", "../commits/{0}.xml".format(rollback), "--compare-branch={0}".format(comp_branch)]).decode("utf-8")
             total_match = re.search(r'Total:(?:\s*)(\d+)', diff_results)
             if total_match:
@@ -50,4 +52,4 @@ def compute_tdd_metric(repo):
     with open("tddresults/result.json", "w") as file:
         file.write(json.dumps(retVal))
 
-#compute_tdd_metric("saasbook/CS169_Great_Course_Guide")
+compute_tdd_metric("adnanhemani/slc-app")
