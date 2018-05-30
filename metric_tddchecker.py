@@ -13,13 +13,13 @@ def compute_tdd_metric(repo):
     os.chdir("./{0}/{1}".format(short_name, short_name))
     os.system("git fetch --all")
     os.system("git reset --hard origin/master")
-    relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:"%H"', "--since='2017-08-01T00:00:00-07:00'"]).decode("ascii")
+    relevant_commits = subprocess.check_output(["git", "log", '--pretty=format:"%H"', "--since='2017-08-01T00:00:00-07:00'"]).decode("utf-8")
     relevant_commits_list = relevant_commits.split("\n")
     #print(relevant_commits_list)
     retVal = {}
 
     for j in relevant_commits_list[::-1]:
-        rollback = j.replace('"', '')
+        rollback = j.replace('"', '').replace("'", "")
         os.system("git reset --hard {0}".format(rollback))
         #parent_results = subprocess.check_output(["git", "log", "--pretty=%P", "-n", "1"]).decode("utf-8")
         parent_results = subprocess.check_output(["git", "cat-file", "-p", rollback, "|", "awk", "'NR>1{if(/^parent/){print$2;next}{exit}}'"]).decode("utf-8")
