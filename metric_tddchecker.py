@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import sys
+import gc
 #Hope that setup is ok
 
 def compute_tdd_metric(repo):
@@ -33,6 +34,7 @@ def compute_tdd_metric(repo):
             if not os.path.exists("../commits/{0}.xml".format(comp_branch)):
                 inside_dict.update({"commit_before": comp_branch, "total": -1, "missing": -1, "error": "commit file does not exist"})
             else:
+                gc.collect()
                 diff_results = subprocess.check_output(["diff-cover", "../commits/{0}.xml".format(rollback), "--compare-branch={0}".format(comp_branch)]).decode("utf-8")
                 total_match = re.search(r'Total:(?:\s*)(\d+)', diff_results)
                 if total_match:
