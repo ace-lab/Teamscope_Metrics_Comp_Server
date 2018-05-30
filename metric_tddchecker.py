@@ -30,7 +30,7 @@ def compute_tdd_metric(repo):
         for i in parent_commits_list:
             inside_dict = {}
             comp_branch = i.replace("\n", "")
-            if not os.path.exists("../commits/{0}.xml".format(i)):
+            if not os.path.exists("../commits/{0}.xml".format(comp_branch)):
                 inside_dict.update({"commit_before": comp_branch, "total": -1, "missing": -1, "error": "commit file does not exist"})
             else:
                 diff_results = subprocess.check_output(["diff-cover", "../commits/{0}.xml".format(rollback), "--compare-branch={0}".format(comp_branch)]).decode("utf-8")
