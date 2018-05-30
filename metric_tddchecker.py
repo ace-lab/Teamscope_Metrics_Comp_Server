@@ -23,7 +23,7 @@ def compute_tdd_metric(repo):
         rollback = j.replace('"', '').replace("'", "")
         os.system("git reset --hard {0}".format(rollback))
         #parent_results = subprocess.check_output(["git", "log", "--pretty=%P", "-n", "1"]).decode("utf-8")
-        parent_results = subprocess.check_output("git cat-file -p " + rollback + " | awk 'NR > 1 {if(/^parent/){print $2; next}{exit}}'", shell=True).decode("utf-8").replace(" ", "")
+        parent_results = subprocess.check_output("git cat-file -p " + rollback + " | awk 'NR > 1 {if(/^parent/){print $2; next}{exit}}'", shell=True).decode("utf-8")
         parent_commits_list = parent_results.split("\n")
         commit_timestamp = subprocess.check_output(["git", "log", "--pretty=%at", "-1"]).decode("utf-8")
         #print(commit_timestamp)
@@ -31,6 +31,8 @@ def compute_tdd_metric(repo):
         for i in parent_commits_list:
             inside_dict = {}
             comp_branch = i.replace("\n", "")
+            if comp_branch == "":
+                continue
             if not os.path.exists("../commits/{0}.xml".format(comp_branch)):
                 inside_dict.update({"commit_before": comp_branch, "total": -1, "missing": -1, "error": "commit file does not exist"})
             else:
