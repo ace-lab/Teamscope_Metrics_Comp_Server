@@ -74,7 +74,8 @@ def comp_one_commit(owner_and_repo, commit_hash):
 
         #Add all to file_dict
         file_dict["files"].append(inner_dict)
-    save_to_file(commit_hash, file_dict)
+    #save_to_file(commit_hash, file_dict)
+    return file_dict
 
 
 def save_to_file(commit_hash, file_dict):
@@ -118,7 +119,9 @@ def check_gh_commit(owner_and_repo, commits):
     for commit in commits:
         if (not os.path.exists("github/{0}.json".format(commit))):
             calculate.append(commit)
+    all_files = []
     for commit in calculate:
-        comp_one_commit(owner_and_repo, commit)
+        all_files.append(comp_one_commit(owner_and_repo, commit))
+    save_to_file("aggregated_total", all_files)
 
 github_comp("adnanhemani/CS169_Great_Course_Guide")
