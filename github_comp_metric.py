@@ -18,6 +18,7 @@ def comp_one_commit(owner_and_repo, commit_hash):
     file_dict = {}
     file_dict["author_username"] = request["author"]["login"]
     file_dict["timestamp"] = request["commit"]["author"]["date"]
+    file_dict["message"] = request["commit"]["message"]
     file_dict["commit_hash"] = commit_hash
     file_dict["files"] = []
     for file in request["files"]:
@@ -78,6 +79,7 @@ def comp_one_commit(owner_and_repo, commit_hash):
 def save_to_file(commit_hash, file_dict):
     if (not os.path.isdir("./github")):
         os.system("mkdir github")
+    os.system("rm github/" + commit_hash + ".json")
     with open("github/" + commit_hash + ".json", 'w') as file:
         file.write(json.dumps(file_dict))
 
@@ -118,4 +120,4 @@ def check_gh_commit(owner_and_repo, commits):
     for commit in calculate:
         comp_one_commit(owner_and_repo, commit)
 
-# github_comp("adnanhemani/CS169_Great_Course_Guide")
+github_comp("adnanhemani/CS169_Great_Course_Guide")

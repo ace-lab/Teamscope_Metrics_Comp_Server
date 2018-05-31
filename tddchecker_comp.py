@@ -94,6 +94,7 @@ def save_to_file(commits_dict):
     if (not os.path.isdir("./commits")):
         os.system("mkdir commits")
     for commit in commits_dict:
+        os.system("rm commits/" + commit + ".xml")
         with open("commits/" + commit + ".xml", 'w') as file:
             file.write(commits_dict[commit])
 

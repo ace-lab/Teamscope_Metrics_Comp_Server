@@ -54,6 +54,7 @@ def compute_tdd_metric(repo):
     os.chdir("..")
     if (not(os.path.isdir("tddresults"))):
         os.system("mkdir tddresults")
+    os.system("rm tddresults/result.json")
     with open("tddresults/result.json", "w") as file:
         file.write(json.dumps(retVal))
 
