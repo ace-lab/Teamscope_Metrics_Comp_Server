@@ -13,10 +13,10 @@ def comp_one_commit(owner_and_repo, commit_hash):
     short_name = matchObj.group(1)
     os.chdir(os.path.expanduser("~/repos"))
     os.chdir("./{0}".format(short_name))
-    r = requests.get("http://api.github.com/repos/{0}/commits/{1}?access_token={2}".format(owner_and_repo, commit_hash, access_token))
+    r = requests.get("https://api.github.com/repos/{0}/commits/{1}?access_token={2}".format(owner_and_repo, commit_hash, access_token))
     request = json.loads(r.text)
     file_dict = {}
-    file_dict["author_username"] = request["author"]["login"]
+    file_dict["author_email"] = request["commit"]["author"]["email"]
     file_dict["timestamp"] = request["commit"]["author"]["date"]
     file_dict["message"] = request["commit"]["message"]
     file_dict["commit_hash"] = commit_hash
@@ -58,8 +58,9 @@ def comp_one_commit(owner_and_repo, commit_hash):
         else:
             inner_dict["file_type"] = "other"
 
+        
         if file["status"] != "removed" and inner_dict["file_type"] != "other":
-            r = requests.get("http://api.github.com/repos/{0}/contents/{1}?access_token={2}".format(owner_and_repo, filename, access_token))
+            r = requests.get(file["contents_url"]+"&access_token=" + access_token)
             file_details = json.loads(r.text)
             try:
                 inner_dict["filesize"] = file_details["size"]
