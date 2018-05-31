@@ -121,7 +121,8 @@ def check_gh_commit(owner_and_repo, commits):
             calculate.append(commit)
     for commit in calculate:
         comp_one_commit(owner_and_repo, commit)
+    commits_file = map(lambda x: "github/" + x + ".json", commits)
     with open("latest_aggregates.json", "wb") as outfile:
-        outfile.write('[{}]'.format(','.join([open(f, "rb").read() for f in commits])))
+        outfile.write('[{}]'.format(','.join([open(f, "rb").read() for f in commits_file])))
 
 github_comp("adnanhemani/CS169_Great_Course_Guide")
