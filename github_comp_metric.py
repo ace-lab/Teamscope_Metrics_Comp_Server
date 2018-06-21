@@ -3,6 +3,7 @@ import json
 import re
 import os
 import subprocess
+import sys
 from secrets import *
 
 access_token = gh_api_key
@@ -125,4 +126,7 @@ def check_gh_commit(owner_and_repo, commits):
     with open("github/latest_aggregates.json", "wb") as outfile:
         outfile.write('[{}]'.format(','.join([open(f, "rb").read() for f in commits_file])))
 
-github_comp("adnanhemani/CS169_Great_Course_Guide")
+if sys.argv[1]:
+    github_comp(sys.argv[1])
+else:
+    print("You forgot to include which repository to run this script on. You should call this function like this: python github_comp_metric.py <insert repo long-name here>")

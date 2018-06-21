@@ -58,4 +58,10 @@ def compute_tdd_metric(repo):
     with open("tddresults/result.json", "w") as file:
         file.write(json.dumps(retVal))
 
-compute_tdd_metric("adnanhemani/slc-app")
+# compute_tdd_metric("adnanhemani/slc-app")
+
+if sys.argv[1]:
+    compute_tdd_metric(sys.argv[1])
+else:
+    print("You forgot to include which repository to run this script on. You should call this function like this: python metric_tddchecker.py <insert repo long-name here>")
+

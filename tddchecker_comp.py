@@ -130,7 +130,11 @@ def premptive_calculations(repo):
 
 
 #check_commits("saasbook/CS169_Great_Course_Guide", ["24fbadaa93833941b80c0db0d7fac8d2d4b8d5bd", "cd67b0a58c4ba757cb4bdf044329addf4291355a"])
-premptive_calculations("adnanhemani/slc-app")
+# premptive_calculations("adnanhemani/slc-app")
+if sys.argv[1]:
+    premptive_calculations(sys.argv[1])
+else:
+    print("You forgot to include which repository to run this script on. You should call this function like this: python tddchecker_comp.py <insert repo long-name here>")
 
 # if __name__ == '__main__':
 #     if sys.argv[1] == "preemptive":
