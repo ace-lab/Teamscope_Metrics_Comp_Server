@@ -123,6 +123,7 @@ def check_gh_commit(owner_and_repo, commits):
     for commit in calculate:
         comp_one_commit(owner_and_repo, commit)
     commits_file = map(lambda x: "github/" + x + ".json", commits)
+    os.system("rm github/latest_aggregates.json")
     with open("github/latest_aggregates.json", "wb") as outfile:
         outfile.write('[{}]'.format(','.join([open(f, "rb").read() for f in commits_file])))
 
