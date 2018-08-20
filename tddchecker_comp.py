@@ -4,6 +4,7 @@ import yaml
 import xml.etree.ElementTree as ET
 import subprocess
 import sys
+import numpy as np
 
 
 def check_commits(repo, commits):
@@ -43,7 +44,7 @@ def calculate_commits(repo, commits):
     short_name = matchObj.group(1)
     try:
         os.system("git fetch --all")
-        os.system("git reset --hard origin/master")
+        os.system("git reset --hard origin/HEAD")
         commit_head = subprocess.check_output(["git", "rev-parse", "HEAD"])
         commit_head = commit_head.replace("\n", "")
         travis_config=yaml.load(open('.travis.yml'))
@@ -65,6 +66,8 @@ def calculate_commits(repo, commits):
         return -3
     
     retVal = {}
+    file_whitelist_all = np.array(["features/support/env.rb", "spec/spec_helper.rb", ".travis.yml", "spec/rails_helper.rb", "Gemfile", ".ruby-version"])
+    file_whitelist = np.isin(file_whitelist_all, map(os.path.isdir, file_whitelist_all))
     for rollback in commits:
         os.system("git reset --hard {0}".format(rollback))
         os.system("rm coverage/*.json" + " > /dev/null 2>&1")
@@ -72,7 +75,7 @@ def calculate_commits(repo, commits):
         os.system("rm coverage/*.html" + " > /dev/null 2>&1")
         os.system("rm coverage/*.xml" + " > /dev/null 2>&1")
         os.system("rm coverage/index.html" + " > /dev/null 2>&1")
-        os.system("git checkout " + commit_head + " features/support/env.rb spec/spec_helper.rb .travis.yml spec/rails_helper.rb Gemfile .ruby-version")
+        os.system("git checkout " + commit_head + " " + " ".join(file_whitelist))
         with open(".travis.yml", 'r') as stream:
             try:
                 cmds = yaml.load(stream)
@@ -113,7 +116,7 @@ def premptive_calculations(repo):
     os.chdir("./{0}/{1}".format(short_name, short_name))
     try:
         os.system("git fetch --all")
-        os.system("git reset --hard origin/master")
+        os.system("git reset --hard origin/HEAD")
         #should be --since 1.days
         os.system("git log --pretty=format:'%H' --since='2017-08-01T00:00:00-07:00' > updated.txt")
     except:
