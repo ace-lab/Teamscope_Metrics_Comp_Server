@@ -67,7 +67,7 @@ def calculate_commits(repo, commits):
     
     retVal = {}
     file_whitelist_all = np.array(["features/support/env.rb", "spec/spec_helper.rb", ".travis.yml", "spec/rails_helper.rb", "Gemfile", ".ruby-version"])
-    file_whitelist = np.isin(file_whitelist_all, map(os.path.isdir, file_whitelist_all))
+    file_whitelist = np.extract(map(os.path.isdir, file_whitelist_all), file_whitelist_all)
     for rollback in commits:
         os.system("git reset --hard {0}".format(rollback))
         os.system("rm coverage/*.json" + " > /dev/null 2>&1")
