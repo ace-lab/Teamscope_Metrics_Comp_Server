@@ -90,6 +90,7 @@ def calculate_commits(repo, commits):
         retVal[rollback] = ET.tostring(root).decode("utf-8")
         save_to_file_single(rollback, retVal[rollback], short_name)
     #save_to_file(retVal)
+    print("Done.")
     return retVal
 
 def save_to_file(commits_dict):
