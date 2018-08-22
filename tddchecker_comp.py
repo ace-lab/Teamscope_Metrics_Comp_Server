@@ -70,6 +70,7 @@ def calculate_commits(repo, commits):
     file_whitelist = np.extract(map(os.path.isfile, file_whitelist_all), file_whitelist_all)
     for rollback in commits:
         os.system("git reset --hard {0}".format(rollback))
+        os.system("bundle install > /dev/null")
         os.system("rm coverage/*.json" + " > /dev/null 2>&1")
         os.system("rm coverage/*.lock" + " > /dev/null 2>&1")
         os.system("rm coverage/*.html" + " > /dev/null 2>&1")
